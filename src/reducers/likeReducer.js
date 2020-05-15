@@ -10,16 +10,16 @@ export const LIKE = "LIKE"
 
 const likeReducer = (state = initState, action) => {
     switch (action.type) {
-        
+
         case LIKE:
-            
+
             let likedArray = initState.Liked
             let nbLikeArray = initState.nbLike
-            
-            if (likedArray[action.id]) {     
+
+            if (likedArray[action.id]) {
                 nbLikeArray[action.id]--
                 likedArray[action.id] = false
-            } else {      
+            } else {
                 nbLikeArray[action.id]++
                 likedArray[action.id] = true
             }

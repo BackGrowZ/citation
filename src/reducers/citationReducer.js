@@ -4,22 +4,12 @@ const initState = {
 }
 
 export const FETCH_QUOTE = "FETCH_QUOTE"
-// export const DELETE_QUOTE = "DELETE_QUOTE"
 export const ADD_QUOTE = "ADD_QUOTE"
 export const NEXT_QUOTE = "NEXT_QUOTE"
 export const PREC_QUOTE = "PREC_QUOTE"
 
 const citationReducer = (state = initState, action) => {
     switch (action.type) {
-
-        // case DELETE_QUOTE:
-        //     let removeAllQuote = state.AllQuote.filter(AllQuote => {
-        //         return action.id !== AllQuote.id
-        //     })
-        //     return {
-        //         ...state,
-        //         AllQuote: removeAllQuote
-        //     }
         case ADD_QUOTE:
             let newQuote = [{ id: state.AllQuote.length, citation: action.citation, auteur: action.auteur }]
             let addQuote = [...state.AllQuote, ...newQuote]

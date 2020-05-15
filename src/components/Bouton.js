@@ -31,7 +31,7 @@ class Bouton extends Component {
                         <Fragment>
                             <button
                                 className='btn btn-primary'
-                                style={{ height: '50px', position: 'relative', top: '200px', opacity: 0, cursor: 'auto'}}
+                                style={{ height: '50px', position: 'relative', top: '200px', opacity: 0, cursor: 'auto' }}
                             >
                                 <i className="fas fa-angle-left"></i>
                             </button>
@@ -53,7 +53,7 @@ class Bouton extends Component {
                         <Fragment>
                             <button
                                 className='btn btn-primary'
-                                style={{ height: '50px', position: 'relative', top: '200px', opacity: 0,cursor: 'auto' }}
+                                style={{ height: '50px', position: 'relative', top: '200px', opacity: 0, cursor: 'auto' }}
                             >
                                 <i className="fas fa-angle-right"></i>
                             </button>

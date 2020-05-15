@@ -11,19 +11,6 @@ const firebaseApp = firebase.initializeApp({
 
 const base = Rebase.createClass(firebase.database())
 
-
-
-// export const test = firebase.database().ref('/citation').once('value').then(function(snapshot) {
-//     var FirebaseCitation = snapshot.val() || []
-//     console.log(FirebaseCitation);
-    
-// });
-// console.log(test)
-
-
-
-
-
 export { firebaseApp }
 
 export default base

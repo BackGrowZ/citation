@@ -14,7 +14,7 @@ class Like extends Component {
     }
     render() {
         let { liked } = this.props
-        let { nbLike } = this.props      
+        let { nbLike } = this.props
         const like = liked[this.props.id] ?
             (
                 <Fragment>

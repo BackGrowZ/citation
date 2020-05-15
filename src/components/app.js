@@ -8,7 +8,7 @@ export default class App extends Component {
     return (
       <Fragment>
         <ShowCitation />
-        <AddCitation/>
+        <AddCitation />
       </Fragment>
     );
   }

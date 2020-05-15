@@ -7,10 +7,10 @@ import Bouton from '../components/Bouton'
 class ShowCitation extends Component {
     render() {
         const { quote } = this.props
-        const maxID = quote.length-1    
+        const maxID = quote.length - 1
         const { id } = this.props
 
-        const show = this.props.quote.length ? 
+        const show = this.props.quote.length ?
             (
                 <div className='container'>
                     <div className="row">
@@ -20,7 +20,7 @@ class ShowCitation extends Component {
                             <p className='display-2 text-right quote'>”</p>
                         </div>
                         <div className="col">
-                            <p><Like id={id}/></p>
+                            <p><Like id={id} /></p>
                         </div>
                         <div className="col">
                             <h4 className='text-right'><i>{quote[id].auteur}</i></h4>
@@ -33,11 +33,11 @@ class ShowCitation extends Component {
         return (
             <div className="container">
                 <div className="row">
-                    <Bouton id={id} button={PREC_QUOTE}/>
+                    <Bouton id={id} button={PREC_QUOTE} />
                     <div className="col-10">
                         <div className='jumbotron'>{show}</div>
                     </div>
-                    <Bouton id={id} max={maxID} button={NEXT_QUOTE}/>
+                    <Bouton id={id} max={maxID} button={NEXT_QUOTE} />
                 </div>
             </div>
         )
@@ -55,7 +55,7 @@ const mapStatetoProps = state => {
 // modifier
 const mapDispatchToProps = dispatch => {
     return {
-        
+
     }
 }
 
