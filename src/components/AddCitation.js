@@ -16,20 +16,13 @@ class AddCitation extends Component {
         this.fetchAllQuote = this.fetchAllQuote.bind(this)
     }
     componentDidMount() {
-        base.syncState('/citation/AllQuote', {
-            context: this,
-            state: "citations"
-        })
-        setTimeout(this.fetchAllQuote, 1000)
+        this.fetchAllQuote()
     }
-    fetchAllQuote() {
-        let fetchallQuote = this.state.citations
-        if (this.state.citations !== undefined) {
-            this.props.fetchQuote(fetchallQuote)
-        }
-        else {            
-            setTimeout(this.fetchAllQuote, 500)
-        }
+    fetchAllQuote = async () => {
+        const citation = await base.fetch('/citation/AllQuote', {
+            context: this,
+        })
+        await this.props.fetchQuote(citation)
     }
     handleClick(e) {
         e.preventDefault();
@@ -38,7 +31,7 @@ class AddCitation extends Component {
         let allCitations = this.state.citations
         let id = uuidv4()
         if (addAuteur !== '' && addCitation !== '') {
-            this.setState({ auteur: '', citation: '', citations:[...allCitations,{'id':id,'auteur':addAuteur,'citation':addCitation}] })
+            this.setState({ auteur: '', citation: '', citations: [...allCitations, { 'id': id, 'auteur': addAuteur, 'citation': addCitation }] })
             this.props.addQuote(addCitation, addAuteur)
         }
     }
