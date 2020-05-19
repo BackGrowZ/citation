@@ -20,7 +20,7 @@ class ShowCitation extends Component {
                             <p className='display-2 text-right quote'>”</p>
                         </div>
                         <div className="col">
-                            <p><Like id={id} /></p>
+                            <p><Like/></p>
                         </div>
                         <div className="col">
                             <h4 className='text-right'><i>{quote[id].auteur}</i></h4>

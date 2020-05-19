@@ -1,3 +1,7 @@
+import base from '../keys'
+import { v4 as uuidv4 } from 'uuid';
+
+
 const initState = {
     AllQuote: [],
     ActiveQuote: 0
@@ -11,8 +15,12 @@ export const PREC_QUOTE = "PREC_QUOTE"
 const citationReducer = (state = initState, action) => {
     switch (action.type) {
         case ADD_QUOTE:
-            let newQuote = [{ id: state.AllQuote.length, citation: action.citation, auteur: action.auteur }]
+            let id = uuidv4()
+            let newQuote = [{ id: id, citation: action.citation, auteur: action.auteur }]
             let addQuote = [...state.AllQuote, ...newQuote]
+            base.post('/citation/AllQuote',{
+                data: addQuote
+             })
             return {
                 ...state,
                 AllQuote: addQuote

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { ADD_QUOTE, FETCH_QUOTE } from '../reducers/citationReducer'
 import base from '../keys'
-import { v4 as uuidv4 } from 'uuid';
 
 class AddCitation extends Component {
     constructor(props) {
@@ -28,10 +27,8 @@ class AddCitation extends Component {
         e.preventDefault();
         let addCitation = this.state.citation
         let addAuteur = this.state.auteur
-        let allCitations = this.state.citations
-        let id = uuidv4()
         if (addAuteur !== '' && addCitation !== '') {
-            this.setState({ auteur: '', citation: '', citations: [...allCitations, { 'id': id, 'auteur': addAuteur, 'citation': addCitation }] })
+            this.setState({ auteur: '', citation: ''})
             this.props.addQuote(addCitation, addAuteur)
         }
     }
