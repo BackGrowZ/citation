@@ -11,7 +11,7 @@ class Like extends Component {
     }
     componentDidMount() {
         this.fetchAllLike(this.props.nbQuote, this.props.uid)
-        setTimeout(() => {  this.forceUpdate(); }, 1000);
+        setTimeout(() => { this.forceUpdate(); }, 1000);
 
     }
     fetchAllLike = async (nbQuote, uid) => {
@@ -22,42 +22,40 @@ class Like extends Component {
         await this.props.fetchLike(verrifLike, nbQuote, uid)
     }
     handleClick() {
-        if (this.props.uid !== null) {
-            this.props.like(this.props.id, this.props.uid)
-            this.forceUpdate();
-        }
+        this.props.like(this.props.id, this.props.uid)
     }
     render() {
         let { id } = this.props
         let { liked } = this.props
         let { nbLike } = this.props
-        
-        const like = liked[id] ?
-            (
-                <Fragment>
-                    <i
-                        className="fas fa-heart"
-                        style={{ color: "red", fontSize: '20px', cursor: 'pointer' }}
-                        onClick={this.handleClick}
-                    />
-                    <span className='ml-2'>{nbLike[id]}</span>
-                </Fragment>
-            ) : (
-                <Fragment>
-                    <i
-                        className="fas fa-heart"
-                        style={{
-                            color: "#9700FF",
-                            textShadow: '-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black',
-                            fontSize: '20px',
-                            cursor: 'pointer'
-                        }}
-                        onClick={this.handleClick}
-                    />
-                    <span className='ml-2'>{nbLike[id]}</span>
-                </Fragment>
-            )
-        return <Fragment>{like}</Fragment>
+        let { uid } = this.props
+
+        const notLikedQuote = uid ? // connecter 
+            <Fragment>
+                <i className="fas fa-heart" style={{ color: "#9700FF", textShadow: '-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black', fontSize: '20px', cursor: 'pointer' }} onClick={this.handleClick} />
+                <span className='ml-2'>{nbLike[id]}</span>
+            </Fragment>
+            : // pas connecter 
+            <Fragment>
+                <i className="fas fa-heart" style={{ color: "#9700FF", textShadow: '-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black', fontSize: '20px' }} />
+                <span className='ml-2'>{nbLike[id]}</span>
+            </Fragment>
+
+        const likedQuote =
+            <Fragment>
+                <i className="fas fa-heart" style={{ color: "red", fontSize: '20px', cursor: 'pointer' }} onClick={this.handleClick} />
+                <span className='ml-2'>{nbLike[id]}</span>
+            </Fragment>
+
+        const like =
+            uid ? // connecter ?
+                liked[id] ? // J'ai liké ?
+                    likedQuote // oui j'ai liker
+                    :
+                    notLikedQuote // non j'ai pas liker
+                : notLikedQuote // Je suis pas connecter
+
+        return like
     }
 }
 

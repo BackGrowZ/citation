@@ -28,7 +28,7 @@ class AddCitation extends Component {
         let addCitation = this.state.citation
         let addAuteur = this.state.auteur
         if (addAuteur !== '' && addCitation !== '') {
-            this.setState({ auteur: '', citation: ''})
+            this.setState({ auteur: '', citation: '' })
             this.props.addQuote(addCitation, addAuteur)
         }
     }
@@ -43,7 +43,9 @@ class AddCitation extends Component {
 
     }
     render() {
-        return (
+        let { uid } = this.props
+
+        const mycitation = uid ? 
             <div className='container mt-5'>
                 <form onSubmit={this.handleClick}>
                     <div className='form-group'>
@@ -57,7 +59,15 @@ class AddCitation extends Component {
                     <button type='submit' className="btn btn-primary">Ajouter</button>
                 </form>
             </div>
+            : null
+        return (
+            mycitation
         )
+    }
+}
+const mapStatetoProps = state => {
+    return {
+        uid: state.login.uid
     }
 }
 
@@ -74,4 +84,4 @@ const mapDispatchToProps = dispatch => {
 }
 
 
-export default connect(undefined, mapDispatchToProps)(AddCitation)
+export default connect(mapStatetoProps, mapDispatchToProps)(AddCitation)

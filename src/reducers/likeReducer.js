@@ -5,8 +5,6 @@ import { v4 as uuidv4 } from 'uuid';
 const initState = {
     Liked: [],
     nbLike: [],
-    // Liked: [false, false, false, false, false, false],
-    // nbLike: [10, 1, 2, 3, 4, 5],
     allLike: []
 }
 
@@ -38,12 +36,7 @@ const likeReducer = (state = initState, action) => {
                 if (action.uid !== null && String(allLikeArray[x]['UID']) === action.uid) {
                     likedArray[idQuote] = true
                 }
-            }
-
-            console.log(allLikeArray);
-            console.log(likedArray);
-            console.log(nbLikeArray);
-            
+            }            
 
             return {
                 ...state,
@@ -71,8 +64,7 @@ const likeReducer = (state = initState, action) => {
                 }
             } else {
                 nbLikeArray[action.id]++
-                likedArray[action.id] = true
-                console.log(allLikeArray)                
+                likedArray[action.id] = true            
                 allLikeArray = [...allLikeArray, ...newLike]
                 base.post('/Like', {
                     data: allLikeArray

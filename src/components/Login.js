@@ -9,7 +9,7 @@ class Login extends Component {
 
     handleAuth = async authData => {
         let uid = authData.additionalUserInfo.profile.id
-        let prenom = authData.additionalUserInfo.profile.first_name
+        let fullname = authData.additionalUserInfo.profile.name
         let email = authData.additionalUserInfo.profile.email
         const user = await base.fetch(`User/${uid}`, {
             context: this
@@ -17,11 +17,12 @@ class Login extends Component {
 
         if (!user.uid) {
             base.post(`User/${uid}`, {
-                data: { 'uid': uid, 'Prénom': prenom, 'email': email }
+                data: { 'uid': uid, 'FullName': fullname, 'email': email }
             })
         }
         await localStorage.setItem('uid', uid)
-        await this.props.login(uid)
+        await localStorage.setItem('FullName', fullname)
+        await this.props.login(uid, fullname)
     }
 
     authenticate = () => {
@@ -35,6 +36,7 @@ class Login extends Component {
     logout = async () => {
         await firebase.auth().signOut().then(this.props.login())
         await localStorage.removeItem('uid')
+        await localStorage.removeItem('FullName')
     }
 
     render() {
@@ -67,10 +69,11 @@ const mapStatetoProps = state => {
 // modifier
 const mapDispatchToProps = dispatch => {
     return {
-        login: (uid) => {
+        login: (uid, fullname) => {
             dispatch({
                 type: LOGIN,
-                uid: uid
+                uid: uid,
+                fullname: fullname
             })
         }
     }
