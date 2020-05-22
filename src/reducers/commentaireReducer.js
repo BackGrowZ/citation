@@ -3,37 +3,8 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 const initState = {
-    allCommentary: [
-        { id: 0, Poste: 0, uid: 163856148648, fullname: 'Anthony Carreta', commentaire: 'my commentary 0' },
-        { id: 1, Poste: 1, uid: 163856148648, fullname: 'Anthony Carreta', commentaire: 'my commentary 1' },
-        { id: 2, Poste: 0, uid: 163856148648, fullname: 'Anthony Carreta', commentaire: 'my commentary 2' },
-        { id: 3, Poste: 1, uid: 163856148648, fullname: 'Anthony Carreta', commentaire: 'my commentary 3' },
-        { id: 4, Poste: 3, uid: 163856148648, fullname: 'Anthony Carreta', commentaire: 'my commentary 4' },
-        { id: 5, Poste: 3, uid: 163856148648, fullname: 'Anthony Carreta', commentaire: 'my commentary 5' },
-        { id: 6, Poste: 2, uid: 163856148648, fullname: 'Anthony Carreta', commentaire: 'my commentary 6' },
-    ],
-    organisedCommentary: [
-        [
-            { id: 0, Poste: 0, uid: 163856148648, fullname: 'Anthony Carreta', commentaire: "my commentary 0 it's not realy long but this my first commentary" },
-            { id: 10, Poste: 0, uid: 163856148648, fullname: 'Anthony Carreta', commentaire: "my commentary 0 testestestse dsdujioqseudzioqd udosuq dioqud_ouf  it's not realy long but this my first commentary" },
-            { id: 20, Poste: 0, uid: 163856148648, fullname: 'Anthony Carreta', commentaire: "my commentary 0 it's not realy long but this my first commentary" },
-            { id: 30, Poste: 0, uid: 163856148648, fullname: 'Anthony Carreta', commentaire: "my commentary 0 it's not realy long but this my first commentary" },
-            { id: 2, Poste: 0, uid: 163856148648, fullname: 'Anthony Carreta', commentaire: 'my commentary 2' },
-            { id: 23, Poste: 0, uid: 163856148648, fullname: 'Anthony Carreta', commentaire: 'my commentary 2' },
-            { id: 24, Poste: 0, uid: 163856148648, fullname: 'Anthony Carreta', commentaire: 'my commentary 2' },
-        ],
-        [
-            { id: 1, Poste: 1, uid: 163856148648, fullname: 'Anthony Carreta', commentaire: 'my commentary 1' },
-            { id: 3, Poste: 1, uid: 163856148648, fullname: 'Anthony Carreta', commentaire: 'my commentary 3' },
-        ],
-        [
-            { id: 6, Poste: 2, uid: 163856148648, fullname: 'Anthony Carreta', commentaire: 'my commentary 6' },
-        ],
-        [
-            { id: 4, Poste: 3, uid: 163856148648, fullname: 'Anthony Carreta', commentaire: 'my commentary 4' },
-            { id: 5, Poste: 3, uid: 163856148648, fullname: 'Anthony Carreta', commentaire: 'my commentary 5' },
-        ]
-    ]
+    allCommentary: [],
+    organisedCommentary: []
 }
 
 export const FETCH_COMMENTARY = "FETCH_COMMENTARY"
@@ -48,19 +19,17 @@ const commentaireReducer = (state = initState, action) => {
 
         case FETCH_COMMENTARY:
             let nbQuote = action.nbQuote
-            allCommentaryArray = [...action.commentary]
+            allCommentaryArray = action.commentary
 
             for (let x = 0; x < nbQuote; x++) {
                 organisedCommentaryArray.push([])
             }
 
-            for (let x = 0; x < allCommentaryArray.length; x++) {
-                let idQuote = allCommentaryArray[x]['Poste']
-                organisedCommentaryArray[idQuote].push(allCommentaryArray[x])
+            let keys = Object.keys(allCommentaryArray)
 
-                // if (action.uid !== null && String(allLikeArray[x]['UID']) === action.uid) {
-                //     likedArray[idQuote] = true
-                // }
+            for (let x = 0; x < keys.length; x++) {
+                let idQuote = allCommentaryArray[keys[x]]['Poste']
+                organisedCommentaryArray[idQuote].push(allCommentaryArray[keys[x]])
             }
 
             return {
@@ -68,39 +37,29 @@ const commentaireReducer = (state = initState, action) => {
                 allCommentary: allCommentaryArray,
                 organisedCommentary: organisedCommentaryArray
             }
-        // case COMMENTARY:
-        //     let idLike = uuidv4()
-        //     let newLike = [{ id: idLike, Poste: action.id, UID: action.uid }]
+        case COMMENTARY:
+            let idCommentary = uuidv4()
+            let newCommentary = [{
+                id: idCommentary,
+                Poste: action.Poste,
+                UID: action.uid,
+                fullname: action.fullname,
+                commentaire: action.commentaire
+            }]
 
-        //     if (likedArray[action.id]) {
-        //         nbLikeArray[action.id]--
-        //         likedArray[action.id] = false
+            console.log(
+            )
+            organisedCommentaryArray[action.Poste] = [...organisedCommentaryArray[action.Poste], ...newCommentary]
 
-        //         for (let x = 0; x < allLikeArray.length; x++) {
-        //             let Poste = allLikeArray[x]['Poste']
-        //             let uid = allLikeArray[x]['UID']
-        //             if (Poste === action.id && uid === String(action.uid)) {
-        //                 allLikeArray.splice(x, 1)
-        //                 base.post('/Like', {
-        //                     data: allLikeArray
-        //                 })
-        //             }
-        //         }
-        //     } else {
-        //         nbLikeArray[action.id]++
-        //         likedArray[action.id] = true            
-        //         allLikeArray = [...allLikeArray, ...newLike]
-        //         base.post('/Like', {
-        //             data: allLikeArray
-        //         })
-        //     }
+            base.post('/Commentary/' + idCommentary, {
+                data: newCommentary[0]
+            })
 
-        //     return {
-        //         ...state,
-        //         Liked: likedArray,
-        //         nbLike: nbLikeArray,
-        //         allLike: allLikeArray
-        //     }
+            return {
+                ...state,
+                allCommentary: allCommentaryArray,
+                organisedCommentary: organisedCommentaryArray,
+            }
         default:
             return state
     }

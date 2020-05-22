@@ -44,13 +44,13 @@ class Login extends Component {
 
         return (
             logged ? (
-                <button className='btn btn-primary' onClick={this.logout}>
+                <button className='btn btn-primary login-btn' onClick={this.logout}>
                     Me déconnecter
                 </button>
             ) : (
                     <div className='container'>
-                        <h2>Connecte toi pour profiter de toute les fonctionnalité</h2>
-                        <button className='btn btn-primary' onClick={this.authenticate}>
+                        {/* <h2>Connecte toi pour profiter de toute les fonctionnalité</h2> */}
+                        <button className='btn btn-primary login-btn' onClick={this.authenticate}>
                             Me connecter avec Facebook
                         </button>
                     </div>

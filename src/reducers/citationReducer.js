@@ -23,7 +23,8 @@ const citationReducer = (state = initState, action) => {
              })
             return {
                 ...state,
-                AllQuote: addQuote
+                AllQuote: addQuote,
+                ActiveQuote:addQuote.length-1
             }
         case FETCH_QUOTE:
             let allQuote = [...action.citations]

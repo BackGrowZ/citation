@@ -9,11 +9,52 @@ class Bouton extends Component {
                 return this.props.precQuote()
             case NEXT_QUOTE:
                 return this.props.nextQuote()
+            case 'test':
+                return console.log('test OK')
             default:
                 return null
         }
     }
+    couleur = (value) => {
+        switch (value) {
+            case 'bleu':
+                return 'btn btn-primary'
+            case 'gris':
+                return 'btn btn-secondary'
+            case 'vert':
+                return 'btn btn-success'
+            case 'rouge':
+                return 'btn btn-danger'
+            case 'orange':
+                return 'btn btn-warning'
+            case 'bleu2':
+                return 'btn btn-info'
+            case 'blanc':
+                return 'btn btn-light'
+            case 'noir':
+                return 'btn btn-dark'
+            case 'lien':
+                return 'btn btn-link'
+            default:
+                return 'btn btn-primary'
+        }
+    }
     render() {
+        // let Couleur = this.props.Couleur ? this.couleur(this.props.Couleur) : 'btn btn-primary'
+        // let Class = this.props.Class ? this.props.Class : null
+        // let Style = this.props.Style ? this.props.Style : null
+        // let Texte = this.props.Texte ? this.props.Texte : 'Validé'
+        // let Clic = this.props.Clic ? () => this.handleClick(this.props.Clic) : null
+        // const structure =
+        //     <Fragment>
+        //         <button
+        //             className={Class,Couleur}
+        //             style={Style}
+        //             onClick={Clic}
+        //         >
+        //             {Texte}
+        //         </button>
+        //     </Fragment>
         const boutton = this.props.button === PREC_QUOTE ?
             (
                 this.props.id > 0 ?
@@ -61,7 +102,8 @@ class Bouton extends Component {
                     )
             )
         return (
-            <Fragment>{boutton}</Fragment>
+            boutton 
+            // <Fragment>{structure}</Fragment>
         )
     }
 }

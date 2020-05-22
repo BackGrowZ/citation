@@ -10,6 +10,7 @@ const initState = {
 
 export const FETCH_LIKE = "FETCH_LIKE"
 export const LIKE = "LIKE"
+export const AJOUT = "AJOUT"
 
 
 
@@ -17,27 +18,39 @@ const likeReducer = (state = initState, action) => {
     let likedArray = state.Liked
     let nbLikeArray = state.nbLike
     let allLikeArray = state.allLike
+    let keys = action.likes ? Object.keys(action.likes) : Object.keys(state.allLike)
     switch (action.type) {
 
         case FETCH_LIKE:
-            allLikeArray = [...action.likes]
+            allLikeArray = action.likes
+            // keys = Object.keys(allLikeArray)
             let nbQuote = action.nbQuote
+
 
             for (let x = 0; x < nbQuote; x++) {
                 likedArray.push(false)
                 nbLikeArray.push(0)
             }
 
-            for (let x = 0; x < allLikeArray.length; x++) {
-                let idQuote = allLikeArray[x]['Poste']
-                let value = nbLikeArray[idQuote] +1
+            for (let x = 0; x < keys.length; x++) {
+                let idQuote = allLikeArray[keys[x]]['Poste']
+                let value = nbLikeArray[idQuote] + 1
                 nbLikeArray[idQuote] = value
-                
-                if (action.uid !== null && String(allLikeArray[x]['UID']) === action.uid) {
+
+                if (action.uid !== null && String(allLikeArray[keys[x]]['UID']) === action.uid) {
                     likedArray[idQuote] = true
                 }
-            }            
+            }
 
+            return {
+                ...state,
+                Liked: likedArray,
+                nbLike: nbLikeArray,
+                allLike: allLikeArray
+            }
+        case AJOUT:
+            likedArray.push(false)
+            nbLikeArray.push(0)
             return {
                 ...state,
                 Liked: likedArray,
@@ -52,22 +65,27 @@ const likeReducer = (state = initState, action) => {
                 nbLikeArray[action.id]--
                 likedArray[action.id] = false
 
-                for (let x = 0; x < allLikeArray.length; x++) {
-                    let Poste = allLikeArray[x]['Poste']
-                    let uid = allLikeArray[x]['UID']
+                console.log(action);
+
+                for (let x = 0; x < keys.length; x++) {
+                    let Poste = allLikeArray[keys[x]]['Poste']
+                    let uid = allLikeArray[keys[x]]['UID']
                     if (Poste === action.id && uid === String(action.uid)) {
-                        allLikeArray.splice(x, 1)
-                        base.post('/Like', {
-                            data: allLikeArray
-                        })
+                        // allLikeArray.splice(keys[x], 1)
+                        delete allLikeArray[keys[x]]
+                        base.remove('/Like/' + keys[x])
+                        // base.post('/Like/' + keys[x], {
+                        //     data: null
+                        // })
                     }
                 }
             } else {
                 nbLikeArray[action.id]++
-                likedArray[action.id] = true            
-                allLikeArray = [...allLikeArray, ...newLike]
-                base.post('/Like', {
-                    data: allLikeArray
+                likedArray[action.id] = true
+
+                allLikeArray[idLike] = newLike[0]
+                base.post('/Like/' + idLike, {
+                    data: newLike[0]
                 })
             }
 

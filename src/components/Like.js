@@ -7,10 +7,8 @@ class Like extends Component {
     constructor(props) {
         super(props);
         this.handleClick = this.handleClick.bind(this)
-        this.componentDidMount = this.componentDidMount.bind(this)
     }
     componentDidMount() {
-        this.fetchAllLike(this.props.nbQuote, this.props.uid)
         setTimeout(() => { this.forceUpdate(); }, 1000);
 
     }
@@ -23,6 +21,8 @@ class Like extends Component {
     }
     handleClick() {
         this.props.like(this.props.id, this.props.uid)
+        this.forceUpdate()
+
     }
     render() {
         let { id } = this.props
@@ -32,12 +32,12 @@ class Like extends Component {
 
         const notLikedQuote = uid ? // connecter 
             <Fragment>
-                <i className="fas fa-heart" style={{ color: "#9700FF", textShadow: '-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black', fontSize: '20px', cursor: 'pointer' }} onClick={this.handleClick} />
+                <i className="fas fa-heart" style={{ color: "#99A3A4", textShadow: '-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black', fontSize: '20px', cursor: 'pointer' }} onClick={this.handleClick} />
                 <span className='ml-2'>{nbLike[id]}</span>
             </Fragment>
             : // pas connecter 
             <Fragment>
-                <i className="fas fa-heart" style={{ color: "#9700FF", textShadow: '-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black', fontSize: '20px' }} />
+                <i className="fas fa-heart" style={{ color: "#99A3A4", textShadow: '-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black', fontSize: '20px' }} />
                 <span className='ml-2'>{nbLike[id]}</span>
             </Fragment>
 
@@ -46,7 +46,7 @@ class Like extends Component {
                 <i className="fas fa-heart" style={{ color: "red", fontSize: '20px', cursor: 'pointer' }} onClick={this.handleClick} />
                 <span className='ml-2'>{nbLike[id]}</span>
             </Fragment>
-
+        
         const like =
             uid ? // connecter ?
                 liked[id] ? // J'ai liké ?

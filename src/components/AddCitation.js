@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { ADD_QUOTE, FETCH_QUOTE } from '../reducers/citationReducer'
+import { AJOUT } from '../reducers/likeReducer'
 import base from '../keys'
 
 class AddCitation extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            show:true,
             citation: '',
             auteur: '',
         }
@@ -14,9 +16,9 @@ class AddCitation extends Component {
         this.handleInputChange = this.handleInputChange.bind(this)
         this.fetchAllQuote = this.fetchAllQuote.bind(this)
     }
-    componentDidMount() {
-        this.fetchAllQuote()
-    }
+    // componentDidMount() {
+    //     this.fetchAllQuote()
+    // }
     fetchAllQuote = async () => {
         const citation = await base.fetch('/citation/AllQuote', {
             context: this,
@@ -30,6 +32,7 @@ class AddCitation extends Component {
         if (addAuteur !== '' && addCitation !== '') {
             this.setState({ auteur: '', citation: '' })
             this.props.addQuote(addCitation, addAuteur)
+            this.props.end()
         }
     }
     handleInputChange(e) {
@@ -45,7 +48,7 @@ class AddCitation extends Component {
     render() {
         let { uid } = this.props
 
-        const mycitation = uid ? 
+        const addCitation = (uid && this.state.show) ? 
             <div className='container mt-5'>
                 <form onSubmit={this.handleClick}>
                     <div className='form-group'>
@@ -61,7 +64,7 @@ class AddCitation extends Component {
             </div>
             : null
         return (
-            mycitation
+            addCitation
         )
     }
 }
@@ -76,6 +79,7 @@ const mapDispatchToProps = dispatch => {
     return {
         addQuote: (citation, auteur) => {
             dispatch({ type: ADD_QUOTE, citation: citation, auteur: auteur })
+            dispatch({ type: AJOUT })
         },
         fetchQuote: (citation) => {
             dispatch({ type: FETCH_QUOTE, citations: citation })
