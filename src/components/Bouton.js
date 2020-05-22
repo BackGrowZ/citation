@@ -55,9 +55,12 @@ class Bouton extends Component {
         //             {Texte}
         //         </button>
         //     </Fragment>
+
+        let max = Object.keys(this.props.allQuote).length -1
+
         const boutton = this.props.button === PREC_QUOTE ?
             (
-                this.props.id > 0 ?
+                this.props.num > 0 ?
                     (
                         <Fragment>
                             <button
@@ -79,7 +82,7 @@ class Bouton extends Component {
                         </Fragment>
                     )
             ) : (
-                this.props.id !== this.props.max ?
+                this.props.num !== max ?
                     (
                         <Fragment>
                             <button
@@ -102,7 +105,7 @@ class Bouton extends Component {
                     )
             )
         return (
-            boutton 
+            boutton
             // <Fragment>{structure}</Fragment>
         )
     }
@@ -111,6 +114,8 @@ class Bouton extends Component {
 // Recuperer les données
 const mapStatetoProps = state => {
     return {
+        num: state.citation.Num,
+        allQuote : state.citation.AllQuote
     }
 }
 

@@ -14,9 +14,11 @@ class Fetcher extends Component {
     }
 
     otherFetch () {
-        if (this.props.nbQuote) {            
-            this.fetchAllLike(this.props.nbQuote, this.props.uid)
-            this.fetchAllCommentary(this.props.nbQuote)
+        let keyQuote = Object.keys(this.props.AllQuote)
+        let nbQuote = keyQuote.length
+        if (nbQuote) {            
+            this.fetchAllLike(nbQuote, this.props.uid)
+            this.fetchAllCommentary(nbQuote)
         } else setTimeout(() => { this.otherFetch(); }, 1000);
     }
 
@@ -48,7 +50,7 @@ class Fetcher extends Component {
 const mapStatetoProps = state => {
     return {
         uid: state.login.uid,
-        nbQuote: state.citation.AllQuote.length,
+        AllQuote: state.citation.AllQuote,
     }
 }
 

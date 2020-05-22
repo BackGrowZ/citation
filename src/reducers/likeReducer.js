@@ -10,7 +10,7 @@ const initState = {
 
 export const FETCH_LIKE = "FETCH_LIKE"
 export const LIKE = "LIKE"
-export const AJOUT = "AJOUT"
+export const AJOUT_LIKE = "AJOUT"
 
 
 
@@ -48,7 +48,7 @@ const likeReducer = (state = initState, action) => {
                 nbLike: nbLikeArray,
                 allLike: allLikeArray
             }
-        case AJOUT:
+        case AJOUT_LIKE:
             likedArray.push(false)
             nbLikeArray.push(0)
             return {
@@ -60,12 +60,9 @@ const likeReducer = (state = initState, action) => {
         case LIKE:
             let idLike = uuidv4()
             let newLike = [{ id: idLike, Poste: action.id, UID: action.uid }]
-
             if (likedArray[action.id]) {
                 nbLikeArray[action.id]--
                 likedArray[action.id] = false
-
-                console.log(action);
 
                 for (let x = 0; x < keys.length; x++) {
                     let Poste = allLikeArray[keys[x]]['Poste']
@@ -74,9 +71,6 @@ const likeReducer = (state = initState, action) => {
                         // allLikeArray.splice(keys[x], 1)
                         delete allLikeArray[keys[x]]
                         base.remove('/Like/' + keys[x])
-                        // base.post('/Like/' + keys[x], {
-                        //     data: null
-                        // })
                     }
                 }
             } else {

@@ -30,6 +30,8 @@ class Like extends Component {
         let { nbLike } = this.props
         let { uid } = this.props
 
+        // console.log(nbLike)        
+
         const notLikedQuote = uid ? // connecter 
             <Fragment>
                 <i className="fas fa-heart" style={{ color: "#99A3A4", textShadow: '-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black', fontSize: '20px', cursor: 'pointer' }} onClick={this.handleClick} />
@@ -65,7 +67,7 @@ const mapStatetoProps = state => {
         liked: state.like.Liked,
         nbLike: state.like.nbLike,
         nbQuote: state.citation.AllQuote.length,
-        id: state.citation.ActiveQuote,
+        id: state.citation.Num,
         uid: state.login.uid
     }
 }

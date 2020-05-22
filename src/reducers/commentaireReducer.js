@@ -9,12 +9,15 @@ const initState = {
 
 export const FETCH_COMMENTARY = "FETCH_COMMENTARY"
 export const COMMENTARY = "COMMENTARY"
+export const AJOUT_COM = "AJOUT_COM"
 
 
 
 const commentaireReducer = (state = initState, action) => {
     let allCommentaryArray = state.allCommentary
     let organisedCommentaryArray = state.organisedCommentary
+    let keys = Object.keys(allCommentaryArray)
+
     switch (action.type) {
 
         case FETCH_COMMENTARY:
@@ -25,7 +28,6 @@ const commentaireReducer = (state = initState, action) => {
                 organisedCommentaryArray.push([])
             }
 
-            let keys = Object.keys(allCommentaryArray)
 
             for (let x = 0; x < keys.length; x++) {
                 let idQuote = allCommentaryArray[keys[x]]['Poste']
@@ -37,6 +39,12 @@ const commentaireReducer = (state = initState, action) => {
                 allCommentary: allCommentaryArray,
                 organisedCommentary: organisedCommentaryArray
             }
+        case AJOUT_COM:
+            organisedCommentaryArray.push([])
+            return {
+                ...state,
+                organisedCommentary : organisedCommentaryArray
+            }
         case COMMENTARY:
             let idCommentary = uuidv4()
             let newCommentary = [{
@@ -47,8 +55,9 @@ const commentaireReducer = (state = initState, action) => {
                 commentaire: action.commentaire
             }]
 
-            console.log(
-            )
+            console.log(action)
+            console.log(organisedCommentaryArray)
+
             organisedCommentaryArray[action.Poste] = [...organisedCommentaryArray[action.Poste], ...newCommentary]
 
             base.post('/Commentary/' + idCommentary, {

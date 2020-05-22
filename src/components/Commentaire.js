@@ -15,7 +15,6 @@ class Commentaire extends Component {
     }
     componentDidMount() {
         setTimeout(() => { this.forceUpdate(); }, 1000);
-        // this.fetchAllCommentary(this.props.nbQuote)
     }
     fetchAllCommentary = async (nbQuote) => {
         const commentary = await base.fetch('/Commentary', {
@@ -27,7 +26,7 @@ class Commentaire extends Component {
         e.preventDefault();
         if (this.state.commentaireAdd !== '') {
             this.setState({ commentaireAdd: '' })
-            this.props.addCommentary(this.props.idQuote, this.props.uid, this.props.fullname, this.state.commentaireAdd)
+            this.props.addCommentary(this.props.num, this.props.uid, this.props.fullname, this.state.commentaireAdd)
         }
     }
     handleInputChange(e) {
@@ -48,13 +47,12 @@ class Commentaire extends Component {
         }
     }
     render() {
-        let { idQuote } = this.props
+        let { num } = this.props
         let { commentary } = this.props
         let { uid } = this.props
-
-        const allCommentary = commentary[idQuote] ?
-            commentary[idQuote].map(commentary =>
-                // <div className='col' key={commentary.id} style={{ maxWidth: '20%' }}>
+      
+        const allCommentary = commentary[num] ?
+            commentary[num].map(commentary =>
                 <div className='col' key={commentary.id}>
                     <div className="card postit" style={{ margin: '20px 0', "width": "18rem" }}>
                         <div className="card-header text-center">{commentary.fullname}</div>
@@ -67,9 +65,7 @@ class Commentaire extends Component {
             : this.check()
 
         const creatCommentary = uid ?
-            // <div className='col' key={commentary.id} style={{ maxWidth: '20%' }}>
             <div className='col' key={commentary.id}>
-                {/* <div className='postit'> */}
                 <div className="card postit" style={{ margin: '20px 0', "width": "18rem" }}>
                     <div className="card-header text-center" >Ajouter un commentaire</div>
                     <div className="card-body texte-center">
@@ -93,12 +89,10 @@ class Commentaire extends Component {
                          </button>
                     </div>
                 </div>
-                {/* </div> */}
             </div>
             : null
 
         return (
-            // <div className='container' style={{ maxWidth: '1600px' }}>
             <div className='container'>
                 <div className='row'>
                     {creatCommentary}
@@ -113,6 +107,7 @@ class Commentaire extends Component {
 const mapStatetoProps = state => {
     return {
         nbQuote: state.citation.AllQuote.length,
+        num: state.citation.Num,
         idQuote: state.citation.ActiveQuote,
         uid: state.login.uid,
         fullname: state.login.fullname,
@@ -123,8 +118,8 @@ const mapStatetoProps = state => {
 // modifier
 const mapDispatchToProps = dispatch => {
     return {
-        addCommentary: (idQuote, uid, fullname, commentary) => {
-            dispatch({ type: COMMENTARY, Poste: idQuote, uid: uid, fullname: fullname, commentaire: commentary })
+        addCommentary: (num, uid, fullname, commentary) => {
+            dispatch({ type: COMMENTARY, Poste: num, uid: uid, fullname: fullname, commentaire: commentary })
         },
         fetchCommentary: (commentary, nbQuote) => {
             dispatch({ type: FETCH_COMMENTARY, commentary: commentary, nbQuote: nbQuote })

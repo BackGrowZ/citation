@@ -23,16 +23,20 @@ class ShowCitation extends Component {
     }
     render() {
         const { quote } = this.props
+        let idQuote = Object.keys(quote)
         const { uid } = this.props
-        const maxID = quote.length - 1
         const { id } = this.props
 
+            console.log(quote);
+            console.log(id);
+            
         const btn = this.state.add ? <button className='btn btn-danger addCitation-btn' onClick={this.handleClick}>Annuler</button> : <button className='btn btn-success addCitation-btn' onClick={this.handleClick}>Ajouter une citation</button>
+        
         const add = uid ?
-         btn
-         : null
+            btn
+            : null
 
-        const show = this.props.quote.length ?
+        const show = idQuote.length ?
             (
                 <div className='container'>
                     <div className="row">
@@ -41,10 +45,10 @@ class ShowCitation extends Component {
                             <h2 className='text-center interligne'>{quote[id].citation} </h2>
                             <p className='display-2 text-right quote'>”</p>
                         </div>
-                        <div className="col"style={{ marginTop:'8px'}}>
+                        <div className="col" style={{ marginTop: '8px' }}>
                             <p><Like /></p>
                         </div>
-                        <div className="col" style={{marginTop:'6px'}}>
+                        <div className="col" style={{ marginTop: '6px' }}>
                             <h4 className='text-right'><i>{quote[id].auteur}</i></h4>
                         </div>
                     </div>
@@ -57,11 +61,11 @@ class ShowCitation extends Component {
         const affichage = (!this.state.add) ?
             <div className="container">
                 <div className="row">
-                    <Bouton id={id} button={PREC_QUOTE} />
+                    <Bouton button={PREC_QUOTE} />
                     <div className="col-10">
                         <div className='jumbotron paper'>{show}</div>
                     </div>
-                    <Bouton id={id} max={maxID} button={NEXT_QUOTE} />
+                    <Bouton button={NEXT_QUOTE} />
                 </div>
             </div>
             :
@@ -69,13 +73,13 @@ class ShowCitation extends Component {
                 <div className="row">
                     {/* <Bouton id={id} button={PREC_QUOTE} /> */}
                     <div className="col-10">
-                        <div className='jumbotron paper'><AddCitation end={this.handleClick}/> </div>
+                        <div className='jumbotron paper'><AddCitation end={this.handleClick} /> </div>
                     </div>
                     {/* <Bouton id={id} max={maxID} button={NEXT_QUOTE} /> */}
                 </div>
             </div>
 
-        return ( <Fragment>{add}{affichage}</Fragment> )
+        return (<Fragment>{add}{affichage}</Fragment>)
     }
 }
 

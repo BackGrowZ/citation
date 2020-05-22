@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { ADD_QUOTE, FETCH_QUOTE } from '../reducers/citationReducer'
-import { AJOUT } from '../reducers/likeReducer'
+import { AJOUT_LIKE } from '../reducers/likeReducer'
+import { AJOUT_COM } from '../reducers/commentaireReducer'
 import base from '../keys'
 
 class AddCitation extends Component {
@@ -79,7 +80,8 @@ const mapDispatchToProps = dispatch => {
     return {
         addQuote: (citation, auteur) => {
             dispatch({ type: ADD_QUOTE, citation: citation, auteur: auteur })
-            dispatch({ type: AJOUT })
+            dispatch({ type: AJOUT_LIKE })
+            dispatch({ type: AJOUT_COM })
         },
         fetchQuote: (citation) => {
             dispatch({ type: FETCH_QUOTE, citations: citation })
