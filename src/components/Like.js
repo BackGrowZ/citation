@@ -28,9 +28,7 @@ class Like extends Component {
         let { id } = this.props
         let { liked } = this.props
         let { nbLike } = this.props
-        let { uid } = this.props
-
-        // console.log(nbLike)        
+        let { uid } = this.props      
 
         const notLikedQuote = uid ? // connecter 
             <Fragment>

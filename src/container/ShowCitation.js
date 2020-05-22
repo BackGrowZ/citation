@@ -26,9 +26,6 @@ class ShowCitation extends Component {
         let idQuote = Object.keys(quote)
         const { uid } = this.props
         const { id } = this.props
-
-            console.log(quote);
-            console.log(id);
             
         const btn = this.state.add ? <button className='btn btn-danger addCitation-btn' onClick={this.handleClick}>Annuler</button> : <button className='btn btn-success addCitation-btn' onClick={this.handleClick}>Ajouter une citation</button>
         

@@ -54,10 +54,6 @@ const commentaireReducer = (state = initState, action) => {
                 fullname: action.fullname,
                 commentaire: action.commentaire
             }]
-
-            console.log(action)
-            console.log(organisedCommentaryArray)
-
             organisedCommentaryArray[action.Poste] = [...organisedCommentaryArray[action.Poste], ...newCommentary]
 
             base.post('/Commentary/' + idCommentary, {

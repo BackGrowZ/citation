@@ -9,8 +9,6 @@ class Bouton extends Component {
                 return this.props.precQuote()
             case NEXT_QUOTE:
                 return this.props.nextQuote()
-            case 'test':
-                return console.log('test OK')
             default:
                 return null
         }
