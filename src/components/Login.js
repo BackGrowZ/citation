@@ -94,7 +94,7 @@ class Login extends Component {
             .signInWithEmailAndPassword(email, password)
             .then(this.handleAuth)
             .catch(err => {
-                console.log('err.message: ', err.message);
+                this.setState({ error: err.message })
 
             })
     }
