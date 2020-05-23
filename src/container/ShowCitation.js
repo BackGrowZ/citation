@@ -59,7 +59,7 @@ class ShowCitation extends Component {
             <div className="container">
                 <div className="row">
                     <Bouton button={PREC_QUOTE} />
-                    <div className="col-10">
+                    <div className="col">
                         <div className='jumbotron paper'>{show}</div>
                     </div>
                     <Bouton button={NEXT_QUOTE} />
@@ -69,7 +69,7 @@ class ShowCitation extends Component {
             <div className="container">
                 <div className="row">
                     {/* <Bouton id={id} button={PREC_QUOTE} /> */}
-                    <div className="col-10">
+                    <div className="col">
                         <div className='jumbotron paper'><AddCitation end={this.handleClick} /> </div>
                     </div>
                     {/* <Bouton id={id} max={maxID} button={NEXT_QUOTE} /> */}
