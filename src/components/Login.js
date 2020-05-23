@@ -158,8 +158,8 @@ class Login extends Component {
                     </Modal.Header>
                     <Modal.Body>
                         {fullnameInput}
-                        <input className='form-control' placeholder='email' value={this.state.email} id='email' onChange={this.handleInputChange}></input>
-                        <input className='form-control' placeholder='password' value={this.state.password} id='password' onChange={this.handleInputChange}></input>
+                        <input type='email' className='form-control' placeholder='email' value={this.state.email} id='email' onChange={this.handleInputChange}></input>
+                        <input type='password' className='form-control' placeholder='password' value={this.state.password} id='password' onChange={this.handleInputChange}></input>
                         <p className='mt-2' style={{ color: 'red' }}>{errorModal}</p>
                     </Modal.Body>
                     <Modal.Footer>
