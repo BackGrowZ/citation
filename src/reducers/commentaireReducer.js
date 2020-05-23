@@ -16,8 +16,9 @@ export const AJOUT_COM = "AJOUT_COM"
 const commentaireReducer = (state = initState, action) => {
     let allCommentaryArray = state.allCommentary
     let organisedCommentaryArray = state.organisedCommentary
-    let keys = Object.keys(allCommentaryArray)
+    let keys = []
 
+    // console.log(action)
     switch (action.type) {
 
         case FETCH_COMMENTARY:
@@ -29,6 +30,7 @@ const commentaireReducer = (state = initState, action) => {
             }
 
 
+            keys = Object.keys(allCommentaryArray)               
             for (let x = 0; x < keys.length; x++) {
                 let idQuote = allCommentaryArray[keys[x]]['Poste']
                 organisedCommentaryArray[idQuote].push(allCommentaryArray[keys[x]])
