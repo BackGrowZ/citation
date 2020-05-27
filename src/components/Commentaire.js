@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import base from '../keys'
 import { connect } from 'react-redux'
-import { COMMENTARY, FETCH_COMMENTARY } from '../reducers/commentaireReducer'
+import { COMMENTARY, FETCH_COMMENTARY, DELETE_COM } from '../reducers/commentaireReducer'
 
 class Commentaire extends Component {
     constructor(props) {
@@ -29,6 +29,11 @@ class Commentaire extends Component {
             this.props.addCommentary(this.props.num, this.props.uid, this.props.fullname, this.state.commentaireAdd)
         }
     }
+    handleDelet(poste, id){
+        this.props.deleteCommentary(poste, id)
+        this.forceUpdate()
+        
+    }
     handleInputChange(e) {
         const target = e.target;
         const value = target.value;
@@ -50,12 +55,26 @@ class Commentaire extends Component {
         let { num } = this.props
         let { commentary } = this.props
         let { uid } = this.props
-      
+
+
         const allCommentary = commentary[num] ?
             commentary[num].map(commentary =>
                 <div className='col' key={commentary.id}>
                     <div className="card postit" style={{ margin: '20px 0', "width": "18rem" }}>
-                        <div className="card-header text-center">{commentary.fullname}</div>
+
+                        <div className="card-header text-center">
+                            {commentary.fullname}
+                            {
+                                commentary.UID === uid ?
+                                    <i
+                                        style={{ position: "absolute", right: '10px', top: '10px', color: 'red', cursor: 'pointer' }}
+                                        className="fas fa-times"
+                                        onClick={() => this.handleDelet(commentary.Poste, commentary.id)}
+                                    />
+                                    : null
+                            }
+                        </div>
+
                         <div className="card-body">
                             <p className="card-text">{commentary.commentaire}</p>
                         </div>
@@ -123,6 +142,10 @@ const mapDispatchToProps = dispatch => {
         },
         fetchCommentary: (commentary, nbQuote) => {
             dispatch({ type: FETCH_COMMENTARY, commentary: commentary, nbQuote: nbQuote })
+        },
+        deleteCommentary: (poste, id) => {
+            dispatch({ type: DELETE_COM, poste: poste, id: id })
+            console.log('good')            
         }
     }
 }
