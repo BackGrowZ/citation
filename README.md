@@ -10,7 +10,7 @@ Ce fichier contient
     => Une const myStore qui retourne le state 
 
 exemple : 
-
+```javascript
 const initialisationState = {
     AllQuote: [
         {
@@ -39,11 +39,12 @@ const myStore = (state = initialisationState, action) => {
 }
 
 export default myStore
-
+```
 # Connecter le store a notre app 
 Dans le fichier principal creer une const store qui permet de do connecter notre store 
 
 exemple : 
+```javascript
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -59,9 +60,10 @@ const store = createStore(myStore)
     </Provider>,
   document.getElementById('root')
 );
-
+```
 ## Lire des donner dans notre store 
 # Creer une classe pour retourner notre store 
+```javascript
 class ShowCitation extends Component {
     render() {
         const { quote } = this.props
@@ -71,15 +73,17 @@ class ShowCitation extends Component {
         )
     }
 }
-
+```
 # Creer une const mapStateToProps qui prend en parametre le state et qui retourne la partit du store que l'on souhaite lire 
 EXEMPLE :
-
+```javascript
  const mapStatetoProps = state => {
     return {
         quote: state.ActiveQuote
     }
 }
-
+```
 # Exporter et connecter
+```javascript
 export default connect(mapStatetoProps)(ShowCitation)
+```
