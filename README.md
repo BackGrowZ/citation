@@ -1,7 +1,9 @@
 ## Mise en place de redux 
 
 # Les module
+```
 yarn add redux react-redux
+```
 
 # Création du fichier store 
 Créer un fichier "myStore.js" 
